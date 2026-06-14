@@ -1,0 +1,25 @@
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) >= n:
+            return False
+        
+        adj_list = defaultdict(list)
+
+        for a, b in edges:
+            adj_list[a].append(b)
+            adj_list[b].append(a)
+    
+        visited = set()
+        def dfs(node):
+            if node in visited:
+                return
+            visited.add(node)
+
+            for neighbor in adj_list[node]:
+                dfs(neighbor)
+            
+
+        dfs(0)
+        if len(visited) != n:
+            return False
+        return True
